@@ -1,19 +1,33 @@
 package pages;
 
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.w3c.dom.html.HTMLInputElement;
 import utilities.Driver;
 
 import java.util.List;
 
+import static org.openqa.selenium.By.xpath;
+
 public class NovodailyHomePage {
+
+    public HTMLInputElement cookie;
+    public WebElement navigationPopupMenu;
+    public WebElement[] productSubOptions;
+
+
     public NovodailyHomePage() {
-        PageFactory.initElements(Driver.getDriver(),this);
+        PageFactory.initElements(Driver.getDriver(), this);
     }
 
+    @FindBy(xpath = ("(//a[normalize-space()='Alle Cookies erlauben'])[1]"))
+    public WebElement cookieAcceptButton;
+
     @FindBy(css = "#uc-btn-accept-banner")
-    public WebElement cookie;
+    public WebElement accepToCookies;
 
     @FindBy(css = "#uc-btn-deny-banner")
     public WebElement cookieDeny;
@@ -21,7 +35,7 @@ public class NovodailyHomePage {
     @FindBy(css = "[class='header-logo-picture']")
     public WebElement logoOfNovodaily;
 
-    @FindBy(xpath = "(//span[text()='Produkte'])[1]")
+    @FindBy(xpath = ("(//div[@class='main-navigation-link-text'])[1]"))
     public WebElement ProductDropdowns;
 
     @FindBy(xpath = "(//span[text()='Deine Ziele'])[1]")
@@ -38,28 +52,28 @@ public class NovodailyHomePage {
     public List<WebElement> ProduktSubOptions;
 
     @FindBy(xpath = "//div[@class='col-4 navigation-flyout-col']/a")
-    public List<WebElement>DeineZieleOptions;
+    public List<WebElement> DeineZieleOptions;
 
-    @FindBy(xpath = "//h2[text()='Bundles']")
+    @FindBy(xpath = ("(//span[normalize-space()='Bundles'])[1]"))
     public WebElement bundlesText;
 
-    @FindBy(xpath = "(//*[text()='Abnehmen'])[4]")
+    @FindBy(xpath = ("(//span[normalize-space()='Abnehmen'])[1]"))
     public WebElement abnehmenText;
 
-    @FindBy(xpath = "(//a[contains(text(),'Abnehmen')])[1]")
+    @FindBy(xpath = ("(//span[normalize-space()='Abnahmen'])[1]"))
     public WebElement abnahmenLinkText;
 
-    @FindBy(xpath = "(//a[contains(text(),'Outdoor-Yoga')])[2]")
+    @FindBy(xpath =("(//*[name()='svg'])[25]"))
     public WebElement OutdoorYogaText;
 
     @FindBy(css = "[class='d-flex justify-content-between']")
     public List<WebElement> subtitelLink;
 
     @FindBy(xpath = "(//*[@name='search'])[2]")
-    public WebElement  searchBox;
+    public WebElement searchBox;
 
     @FindBy(css = "[class='navigation-flyout is-open']")
-    public WebElement navigationPopupMenu;
+    public WebElement navigationFlyout;
 
     @FindBy(xpath = "//*[text()='Alle Produkte']")
     public WebElement alleProdukteText;
@@ -74,3 +88,4 @@ public class NovodailyHomePage {
     public WebElement ratgeberText;
 
 }
+

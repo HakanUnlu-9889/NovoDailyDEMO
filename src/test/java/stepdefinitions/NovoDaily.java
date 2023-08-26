@@ -1,9 +1,9 @@
 package stepdefinitions;
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.After;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -24,7 +24,8 @@ public class NovoDaily {
     NovoDaily_searchboxResults searchboxResults = new NovoDaily_searchboxResults();
     NovoDaily_ProductPage productPage = new NovoDaily_ProductPage();
 
-   String homepageHandle = null;
+    String homepageHandle = null;
+    private Object navigateLinkElement;
 
     @When("The User click on the NovoDaily font logo")
     public void the_user_click_on_the_novo_daily_font_logo() {
@@ -34,14 +35,13 @@ public class NovoDaily {
     public void verify_that_the_logo_of_novo_daily_is_displayed_on_the_homepage() {
         Assert.assertTrue(homePage.logoOfNovodaily.isDisplayed());
     }
-    @Then("close the browser")
-    public void close_the_browser() {
 
-    }
+
+
 
     @And("accept the cookie")
     public void acceptTheCookie() {
-        homePage.cookie.click();
+        homePage.cookieAcceptButton.click();
     }
 
     @Given("The user navigate to novoDaily website")
@@ -145,6 +145,8 @@ public class NovoDaily {
 
         Set<String> handles = Driver.getDriver().getWindowHandles();
 
+        boolean isTitleDisplayed = false;
+
         for (var each:handles) {
             if (!each.equals(homepageHandle)){
                 Driver.getDriver().switchTo().window(each);
@@ -172,9 +174,8 @@ public class NovoDaily {
         }
 
 
-//        String actualResult = homePage.bundlesText.getText();
-//
-//        Assert.assertEquals(expectedResult,actualResult);
+        //String actualResult = homePage.bundlesText.getText();
+        //Assert.assertEquals(expectedResult,actualResult);
 
     }
 
@@ -199,7 +200,8 @@ public class NovoDaily {
 
         JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
 
-        js.executeScript("arguments[0].scrollIntoView();", homePage.abnahmenLinkText);
+
+        js.executeScript("arguments[0].scrollIntoView();", homePage.abnehmenText);
 
     }
 
@@ -234,9 +236,13 @@ public class NovoDaily {
         String actualPrice = searchboxResults.priceOfProduct.getText();
 
         Assert.assertTrue(actualPrice.contains(expectedPrice));
+        System.out.println(actualPrice);
+        System.out.println(expectedPrice);
 
         String expectedNumber = number;
         String actualNumber =  searchboxResults.numberOfProduct.getText();
+        System.out.println(actualNumber);
+        System.out.println(expectedNumber);
 
         Assert.assertTrue(actualNumber.contains(expectedNumber));
 
@@ -250,13 +256,15 @@ public class NovoDaily {
         String expectedName = name;
         String actualName = searchboxResults.nameOfProduct.getText();
 
-       Assert.assertTrue(actualName.contains(expectedName));
+        Assert.assertTrue(actualName.contains(expectedName));
 
     }
 
     @When("click on search box and type any {string}")
     public void clickOnSearchBoxAndTypeAny(String ProductName) {
+        homePage.searchBox.clear();
         homePage.searchBox.sendKeys(ProductName);
+
 
     }
 
@@ -281,7 +289,7 @@ public class NovoDaily {
 
     @And("wait for {int} seconds")
     public void waitForSeconds(int arg0) {
-            ReusableMethods.waitFor(2);
+        ReusableMethods.waitFor(2);
     }
 
     @Then("verify that the navigation flyout is displayed")
@@ -318,5 +326,8 @@ public class NovoDaily {
     }
 
 
-
+    @Then("close the browser")
+    public void closeTheBrowser() {
+        Driver.quitDriver();
+    }
 }

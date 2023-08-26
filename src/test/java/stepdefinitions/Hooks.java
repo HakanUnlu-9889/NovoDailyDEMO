@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.MutablePicoContainer;
 import utilities.Driver;
-
+/*
 public class Hooks {
 
     @Before
@@ -25,9 +25,10 @@ public class Hooks {
         if (scenario.isFailed()) {
             scenario.attach(screenshot, "image/png","screenshots");
         }
-//        Driver.closeDriver();
+      Driver.closeDriver();
     }
     // hoobs daki after metod her test metodundan sonra calisacak testimiz failed olsa bile yada passed olsa bile
     // kapaticak bu yuzden test casedeki kapat cumlesini silebiliriz.
 
 }
+*/
